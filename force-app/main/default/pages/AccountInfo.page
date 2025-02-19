@@ -1,0 +1,28 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 01-08-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<apex:page id="AccountInfo" standardController="Account" recordSetVar="Account">
+    <apex:includeLightning />
+    <div id="lightning" />
+
+    <script>
+        if(SfdcApp.projectOneNavigator) {
+            SfdcApp.projectOneNavigator.fireContainerEvent(
+                "force:navigateToComponent",
+                {
+                    componentDef: 'c:AccountInfo',
+                    componentAttributes: {
+                        "sObjName" : "Account" ,
+                        "pSyncType" : "RECEIVE"
+                    },
+                    resetHistory: false
+                }
+            );
+        }
+    </script>
+
+</apex:page>

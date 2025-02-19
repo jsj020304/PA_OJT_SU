@@ -1,0 +1,21 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-03-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<aura:component implements="force:hasRecordId, flexipage:availableForAllPageTypes, flexipage:availableForRecordHome">
+    <aura:attribute name="accountMatching" type="Boolean" default="false"/>
+
+    <aura:handler name="AccountMatchingEvt" event="c:AccountMatchingEvt" action="{!c.fnGetEvent}"/>
+    
+    <div class="slds-box slds-theme_default" style ="background-color:#F0F0F0; display:flex; justify-content:flex-end;">
+        <lightning:button variant="brand-outline" label="독자 매칭" onclick="{!c.fnClick}"/>
+
+        <aura:if isTrue="{!v.accountMatching}">
+            <c:AccountMatching recordId="{!v.recordId}"/>
+        </aura:if>
+    </div>
+</aura:component>

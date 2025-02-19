@@ -1,0 +1,69 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-04-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+
+<aura:component controller="AccountMatchingController" implements="force:lightningQuickActionWithoutHeader, force:hasRecordId, lightning:actionOverride">
+  <aura:html tag="style">
+    .slds-modal__content {
+    overflow-y: auto !important;
+    height: 75% !important; max-height: 90% !important; }
+    .slds-modal__container
+    { width: 90%; max-width : 100% !important; }
+  </aura:html>
+
+    <lightning:workspaceAPI aura:id="AccountMatching"/>
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="isModalOpen" type="Boolean" default="true"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.fnInit}"/>
+
+    <aura:registerEvent name="AccountMatchingEvt" type="c:AccountMatchingEvt"/>
+
+    <aura:if isTrue="{!v.isModalOpen}">
+      <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+        class="slds-modal slds-fade-in-open slds-modal_large">
+        <div class="slds-modal__container">
+          <div style="position:relative">
+            <aura:if isTrue="{!v.showSpinner}">
+              <lightning:spinner variant="brand" size="medium" />
+            </aura:if>
+    
+            <div class="slds-modal__header">
+              <lightning:buttonIcon iconName="utility:close" size="large" alternativeText="Close" variant="bare-inverse" class="slds-modal__close" onclick="{!c.fnCancel}" />
+              <div class="slds-media">
+                <div class="slds-media__figure">
+                  <lightning:icon iconName="standard:buyer_group_qualifier" size="small" />
+                </div>
+                <div class="slds-media__body" style="text-align: left;">
+                  <h2 class="slds-text-heading_medium">독자매칭</h2>
+                </div>
+              </div>
+            </div>
+    
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning:datatable
+                          data="{!v.data}"
+                          columns="{!v.columns}"
+                          keyField="id"
+                          hideCheckboxColumn="true"
+                          onrowaction="{!c.fnClickButton}" />
+            </div>
+            <div class="slds-modal__footer" style="padding: 5px;">
+              <lightning:button label="취소" variant="neutral" onclick="{!c.fnCancel}" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+    </aura:if>
+
+</aura:component>

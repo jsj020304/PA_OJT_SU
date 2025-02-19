@@ -1,0 +1,51 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 01-09-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+  
+  1. cmp, js controller 등 (lightning component bundle)
+
+  2. AccountInfo.page(vf page) > List View Button 생성을 위해 필요함.
+
+  3. AccountInfoController(apex controller) 
+  > 인터페이스(IF_MIS_ACCOUNT_INFO) 부분 뺴느라 내용이 없음. 
+  > saveBranch(), cancelAction()은 호출하는 곳이 없는데 왜 있는지 모르겠지만!! 어쨌든 빼도 상관이 없어서 execute()만 넣으면 될 듯
+-->
+<aura:component description="AccountInfo" controller="AccountInfoController" implements="flexipage:availableForAllPageTypes">
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:attribute name="showSpinner" type="boolean" default="false"/>
+    <aura:attribute name="tabId" type="String"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.fnInit}"/>
+
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open slds-modal_x-small">
+        <div class="slds-modal__container">
+
+            <aura:if isTrue="{!v.showSpinner}">
+                <lightning:spinner variant="brand" size="medium" />
+            </aura:if>
+            
+            <div class="slds-modal__header" >
+                <lightning:buttonIcon iconName="utility:close" size="large" alternativeText="Close" variant="bare-inverse" class="slds-modal__close" onclick="{!c.fnModalCancel}" />
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">거래처조회</h2>
+            </div>
+
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning:layoutItem size="12">
+                    <div class="slds-form_horizontal">
+                        거래처 정보를 가져오겠습니다.
+                    </div>
+                </lightning:layoutItem>
+            </div>
+
+            <div class="slds-modal__footer">
+                <lightning:button variant="brand" label="확인" onclick="{!c.fnModalSave}" />
+                <lightning:button variant="neutral" label="취소" onclick="{!c.fnModalCancel}"/>
+            </div>
+        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+
+</aura:component>

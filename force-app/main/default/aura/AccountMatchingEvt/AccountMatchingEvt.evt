@@ -1,0 +1,3 @@
+<aura:event type="APPLICATION" description="AccountMatchingEvt">
+    <aura:attribute name="actionType" type="String" default="SELECT" description="액션유형"/>
+</aura:event>
