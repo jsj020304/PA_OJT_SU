@@ -8,5 +8,6 @@
     "*.cmp": "html",
     "*.app": "html"
   },
-  "vlocity.sfdxUsername": "vscodeOrg"
+  "vlocity.sfdxUsername": "vscodeOrg",
+  "salesforcedx-vscode-core.show-cli-success-msg": false
 }

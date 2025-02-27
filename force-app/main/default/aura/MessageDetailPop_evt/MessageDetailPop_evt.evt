@@ -1,1 +1,6 @@
-<aura:event type="APPLICATION" description="Event template" />
+<aura:event type="COMPONENT" description="MessageDetailPop_evt">
+    <aura:attribute name="actionComponent" type="String" description="액션모달 Component"/>
+    <aura:attribute name="actionType" type="String" description="액션유형"/>
+    <aura:attribute name="mapParam" type="Map" description="" default="{}"/>
+    <aura:attribute name="content" type="String" description="내용" default=""/>
+</aura:event>

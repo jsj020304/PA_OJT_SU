@@ -2,10 +2,25 @@
  * @description       : 
  * @author            : ChangeMeIn@UserSettingsUnder.SFDoc
  * @group             : 
- * @last modified on  : 02-17-2025
+ * @last modified on  : 02-24-2025
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
 **/
 public with sharing class DN_CommonUtil {
+
+    public static List<Map<String, String>> getPickListValues(String objectType, String selectedField) {
+        List<Map<String, String>> pickListValuesList = new List<Map<String, String>>();
+        Schema.SObjectType convertToObj = Schema.getGlobalDescribe().get(objectType);
+        Schema.DescribeSObjectResult res = convertToObj.getDescribe();
+        Schema.DescribeFieldResult fieldResult = res.fields.getMap().get(selectedField).getDescribe();
+        List<Schema.PicklistEntry> ple = fieldResult.getPickListValues();
+        for (Schema.PicklistEntry pickListVal : ple) {
+            pickListValuesList.add(new Map<String, String> {
+                'label' => pickListVal.getLabel(),
+                'value' => pickListVal.getValue()
+            });
+        }
+        return pickListValuesList;         
+    }
 
     // 세일즈포스 필드 데이터타입 중 Auto Number을 유동적으로 사용하기 위해 구현
     // Auto Number는 자동 생성되어 사용자가 직접 수정이 불가하지만, 밑에 함수로 값을 할당하면 수정 가능함.

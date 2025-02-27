@@ -1,3 +1,101 @@
-<aura:component>
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 02-25-2025
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
 
+<aura:component controller="MessageDetailPopController">
+    <aura:attribute name="openModal" type="Boolean" default="true" />
+    <aura:attribute name="pObject" type="String" default="" />
+    <aura:attribute name="fieldList" type="List" default="[]" />
+    <aura:attribute name="displayList" type="List" default="[]" />
+    <aura:attribute name="relatedFieldList" type="List" default="[]" />
+
+    <aura:attribute name="mapParam" type="Map" default="{}" />
+    <aura:attribute name="variableName" type="String" default="" />
+    <aura:attribute name="objectAPI" type="String" default="" />
+    <aura:attribute name="fieldAPI" type="String" default="" />
+    <aura:attribute name="displayType" type="String" default="" />
+    <aura:attribute name="relatedField" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.fnInit}" />
+    <aura:registerEvent name="MessageDetailPopEvt" type="c:MessageDetailPop_evt" />
+
+    <aura:html tag="style">
+        .cuf-content {
+        padding: 0 0rem !important;
+        }
+        .slds-p-around--medium {
+        padding: 0rem !important;
+        }
+        .slds-modal__content{
+        overflow-y:hidden !important;
+        height:unset !important;
+        max-height:unset !important;
+        }
+    </aura:html>
+
+    <aura:if isTrue="{!v.openModal}">
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01"
+            class="slds-modal slds-fade-in-open slds-modal_large">
+
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close" size="large" alternativeText="Close"
+                        variant="bare-inverse" class="slds-modal__close" onclick="{!c.fnCancel}" />
+                    <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate" tabindex="-1">새 변수 생성</h1>
+                </div>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:layout>
+                        <lightning:layoutItem size="6" padding="horizontal-small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <lightning:input label="변수명" type="text" value="{!v.variableName}" />
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+
+                    <lightning:layout>
+                        <lightning:layoutItem size="6" padding="horizontal-small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <lightning:input label="Object API" type="text" value="{!v.pObject}" disabled="true" />
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+
+                    <lightning:layout>
+                        <lightning:layoutItem size="6" padding="horizontal-small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <lightning:combobox label="Field API" value="{!v.fieldAPI}" options="{!v.fieldList}"
+                                    onchange="{!c.fnFieldChange}" />
+                            </div>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem size="6" padding="horizontal-small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <lightning:combobox label="Related Field" value="{!v.relatedField}"
+                                    options="{!v.relatedFieldList}" />
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+
+                    <lightning:layout>
+                        <lightning:layoutItem size="6" padding="horizontal-small">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <lightning:combobox label="DisplayType" value="{!v.displayType}"
+                                    options="{!v.displayList}" />
+                            </div>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </div>
+
+                <div class="slds-modal__footer">
+                    <lightning:button label="Cancel" variant="neutral" onclick="{!c.fnCancel}" />
+                    <lightning:button label="Save" variant="brand" onclick="{!c.fnSave}" />
+                </div>
+
+            </div>
+        </section>
+    </aura:if>
 </aura:component>
